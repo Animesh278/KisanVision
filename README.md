@@ -1,27 +1,28 @@
 <div align="center">
 
-  <h1>🌾 KisanVision</h1>
-  <h3>AI-Powered Crop Disease Detection & Agriculture Assistant</h3>
-  <p>KisanVision is an AI-powered agricultural decision-support system that combines crop disease detection, crop recommendation, yield prediction, plant health analysis, and a GenAI-powered agricultural assistant.</p>
+  <h1>🌾 KisanVision AI</h1>
+  <h3>GenAI-Powered Crop Doctor: Multimodal Vision Diagnostics with Grounded Extension RAG</h3>
+  <p>An evidence-grounded agricultural decision-support platform combining 52-class PyTorch Computer Vision classification, FAISS vector retrieval of authoritative extension literature, and Google Gemini 3.8 Flash structured clinical reasoning.</p>
 
   <br/>
 
   <!-- Tech Stack Badges -->
   <p>
-    <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+    <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/PyTorch-2.13-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
+    <img src="https://img.shields.io/badge/FAISS-Vector_RAG-00599C?style=for-the-badge&logo=meta&logoColor=white" alt="FAISS" />
+    <img src="https://img.shields.io/badge/Gemini_3.8_Flash-GenAI-1A73E8?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
+    <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
     <img src="https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
-    <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
-    <img src="https://img.shields.io/badge/XGBoost-FF6600?style=for-the-badge&logo=xgboost&logoColor=white" alt="XGBoost" />
-    <img src="https://img.shields.io/badge/Gemini_AI-1A73E8?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
+    <img src="https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
   </p>
 
   <!-- Status Badges -->
   <p>
-    <img src="https://img.shields.io/badge/status-active-brightgreen?style=flat-square" alt="Status" />
-    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" />
-    <img src="https://img.shields.io/badge/platform-web-lightgrey?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/Branch-presentation--polish-emerald?style=flat-square" alt="Branch" />
+    <img src="https://img.shields.io/badge/Tests-8%2F8%20Passed-brightgreen?style=flat-square" alt="Tests" />
+    <img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square" alt="Build" />
+    <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License" />
   </p>
 
 </div>
@@ -29,400 +30,231 @@
 ---
 
 ## 📖 Table of Contents
-
 - [Project Overview](#-project-overview)
+- [System Architecture (3-Layer RAG Design)](#-system-architecture)
+- [Why RAG Matters in Agricultural AI](#-why-rag-matters-in-agricultural-ai)
 - [Key Features](#-key-features)
-- [System Architecture](#️-system-architecture)
 - [Project Structure](#-project-structure)
-- [Tech Stack](#-tech-stack)
-- [Datasets](#️-datasets)
 - [Installation & Setup](#-installation--setup)
-- [How to Use](#️-how-to-use)
-- [Team Contributions](#-team-contributions)
-- [Future Improvements](#-future-improvements)
+- [Knowledge Base Ingestion](#-knowledge-base-ingestion)
+- [Running the Test Suite](#-running-the-test-suite)
+- [Running the Application](#-running-the-application)
+- [Presentation & Demo Guide](#-presentation--demo-guide)
+- [Ethical Safety & Honest Limitations](#-ethical-safety--honest-limitations)
 - [License](#-license)
 
 ---
 
 ## 🌐 Project Overview
 
-The **Smart Agriculture AI System** is a full-stack, AI-powered platform designed to modernize farming practices through data intelligence. By integrating deep learning, ensemble machine learning, and generative AI, the system helps farmers make precision-driven agronomic decisions.
+**KisanVision AI** is an enterprise-grade agricultural decision-support application built for final-year major engineering capstone presentation.
 
-**Core problem this solves:** Farmers lack timely, affordable access to agronomic expertise. Late disease diagnosis, wrong crop selection, and yield uncertainty lead to massive losses. This system provides an on-demand AI advisor that processes soil data, leaf images, and historical climate records to deliver actionable recommendations in real time.
+### The Problem
+Smallholder farmers lack affordable, timely access to certified plant pathologists. When foliar diseases strike (e.g., Early Blight in tomatoes or Late Blight in potatoes), farmers face catastrophic crop loss within days. Meanwhile, generic LLM chatbots hallucinate arbitrary chemical dosages, confuse look-alike fungal spots, and have no connection to local agricultural extension standards.
 
-**What makes it unique:**
-- End-to-end pipeline from raw farm data → AI inference → generative advisory
-- Three independent ML models (Vision CNN, Ensemble Classifier, XGBoost Regressor) unified under a single API
-- Augmented with **Google Gemini LLM** for human-readable, context-aware farming advice
-- A sleek, production-quality React dashboard with multi-language support
+### The KisanVision Solution
+KisanVision decouples **Perception** from **Reasoning**:
+1. **Perception**: A dedicated PyTorch deep learning vision model classifies leaf pathology into 52 classes and generates Grad-CAM attention heatmaps.
+2. **Retrieval (RAG)**: A FAISS vector database retrieves exact matching treatment protocols from peer-reviewed agricultural extension manuals (ICAR & USDA IPM guides).
+3. **Reasoning**: Google Gemini 3.8 Flash reasons over the prediction and retrieved evidence, producing a strictly validated Pydantic clinical action plan with traceable source citations and multi-turn follow-up memory.
+
+---
+
+## 🏛️ System Architecture
+
+```
+[ Leaf Photograph ] + [ Optional Field Context: Crop, Growth Stage, Symptoms, Location ]
+        │
+        ▼
+┌────────────────────────────────────────────────────────┐
+│ 1. PERCEPTION LAYER (PyTorch CNN Backbone)             │
+│    • 52 Foliar Disease Classes (Softmax Probabilities) │
+│    • Tested Benchmark: 98.66% Confidence on Tomato EB  │
+│    • Grad-CAM Spatial Lesion Attention Heatmap         │
+└───────────────────────┬────────────────────────────────┘
+                        │ Pathogen Label + Real Confidence
+                        ▼
+┌────────────────────────────────────────────────────────┐
+│ 2. RETRIEVAL LAYER (FAISS Dense Vector RAG)           │
+│    • Curated Extension Guides (ICAR & USDA Manuals)    │
+│    • 3072-Dim Embeddings (gemini-embedding-001)       │
+│    • Cosine Similarity Search (IndexFlatIP)            │
+│    • Deterministic TF-IDF Fallback for Offline Safety │
+└───────────────────────┬────────────────────────────────┘
+                        │ Top-3 Evidence Passages + Citations
+                        ▼
+┌────────────────────────────────────────────────────────┐
+│ 3. REASONING & PRESENTATION LAYER                      │
+│    • Gemini 3.8 Flash (Low Temperature: 0.2)          │
+│    • Pydantic Schema: GroundedClinicalAssessment      │
+│    • Prioritized Actions: Cultural > Bio > Chemical   │
+│    • Multi-Turn Case-Preserving Follow-Up Assistant   │
+│    • React 19 Enterprise Agritech Dashboard           │
+└────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔬 Why RAG Matters in Agricultural AI
+
+| Vector | Unassisted LLM Chatbot | KisanVision AI (Grounded RAG) |
+| :--- | :--- | :--- |
+| **Visual Diagnosis** | Uncalibrated multimodal guessing | Dedicated PyTorch CNN (52 foliar disease classes) |
+| **Evidence Grounding** | Unverifiable probabilistic hallucinations | Vector retrieval from published extension guides |
+| **Traceability** | None (cannot cite official documents) | Explicit Document ID (`EXT-SOL-2024-TOM`) & section citations |
+| **Dosage Safety** | Hallucinates dangerous chemical concentrations | Cultural pruning & irrigation adjustment prioritized first |
+| **Output Integrity** | Variable unstructured text | Pydantic JSON schema strictly enforced |
 
 ---
 
 ## ✨ Key Features
 
-| Feature | Description |
-|---|---|
-| 🔬 **AI Disease Detection** | Upload a leaf image → EfficientNet CNN identifies crop disease with Grad-CAM heatmap explanations |
-| 🌱 **Crop Recommendation** | Input soil (N, P, K, pH) & climate data → Soft-voting ensemble recommends the top 3 crops |
-| 🧠 **Gemini Advisory** | Google Gemini LLM generates fertilizer dosing, biological prevention, and irrigation advice |
-| 💬 **Farm AI Chatbot** | Conversational assistant powered by Gemini for open-ended farming Q&A |
-| 📈 **Yield Forecasting** | Input area, crop, & year → XGBoost regression predicts harvest density (hg/ha) |
-| 🛡️ **Confidence Guards** | AI flags low-confidence predictions to prevent risky agronomic decisions |
-| 🌍 **Multi-Language UI** | Frontend supports internationalization (i18n) via react-i18next |
-| 📊 **Interactive Charts** | Recharts-powered visualizations of yield trends and recommendation scores |
+1. **Focused Product Experience (Crop Doctor)**:
+   - Unified diagnostic workflow replacing fragmented chatbots and duplicate pages.
+   - Clean navigation: **Home | Crop Doctor | How It Works | About**.
+2. **One-Click Demonstration Presets**:
+   - 4 preloaded test cases (`Tomato Early Blight`, `Potato Late Blight`, `Tomato Bacterial Spot`, `Healthy Control`) for zero-risk live presentations.
+3. **Transparent "How This Was Generated" Panel**:
+   - Live presentation drawer exposing model logits, top-5 distributions, retrieved text chunks, and Pydantic JSON.
+4. **Context-Aware Follow-Up Assistant**:
+   - Multi-turn conversation preserving diagnosed case history, allowing farmers to ask about chemical timing, weather impacts, or composting.
+5. **Presentation-Grade Agritech Aesthetics**:
+   - Deep forest green (`#0F2E22`), fresh accent green (`#16A34A`), and warm off-white background (`#F8FAF6`) styled for professional agricultural software.
 
 ---
 
-## 🏗️ System Architecture
-
-The application follows a clean, decoupled full-stack architecture designed for high performance and scalability:
+## 📁 Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    React Frontend (:3000)                    │
-│      (Dashboard UI, Multi-Language, Interactive Charts)     │
-└──────────────────────────┬──────────────────────────────────┘
-                           │ 
-                           │ HTTP / REST (JSON & FormData)
-                           │ 
-┌──────────────────────────▼──────────────────────────────────┐
-│               Python FastAPI ML Server (:8000)               │
-│      (Model Inference, Gemini Integration, Validation)       │
-├─────────────────┬─────────────────────┬─────────────────────┤
-│ Disease Engine  │   Crop Engine        │   Yield Engine      │
-│ (EfficientNet)  │ (Voting Ensemble)    │ (XGBoost Regressor) │
-└─────────────────┴─────────────────────┴─────────────────────┘
+Kisan Vision/
+├── ai_api/
+│   ├── api.py                    # Consolidated FastAPI backend
+│   └── .env                      # API keys & secrets (gitignored)
+├── smart_system/
+│   ├── disease_engine.py         # PyTorch disease model inference engine
+│   ├── rag/
+│   │   ├── documents/            # Extension manuals (Tomato, Potato, Cereals, IPM)
+│   │   ├── ingest.py             # Knowledge chunking & FAISS index builder
+│   │   ├── retriever.py          # Dense vector search & TF-IDF fallback
+│   │   ├── advisor.py            # Gemini 3.8 Flash grounded clinical reasoning
+│   │   └── index/                # FAISS vector index & metadata JSON
+│   ├── crop_engine.py            # Crop recommendation engine
+│   └── yield_engine.py           # Historical yield prediction engine
+├── disease_model/
+│   ├── models/                   # disease_model.pth & class_names.json
+│   └── data/PlantVillage/        # Evaluation & test leaf datasets
+├── frontend/
+│   ├── src/
+│   │   ├── components/           # Navbar, Footer, LanguageSwitcher
+│   │   ├── pages/                # Home, CropDoctor, HowItWorks, About
+│   │   ├── App.js                # Clean 4-page router
+│   │   └── index.css             # Enterprise agritech design system
+│   └── public/samples/           # Demonstration preset leaf images
+├── samples/                      # Root copies of verified sample images
+├── tests/
+│   └── test_crop_doctor_rag.py   # 8-point automated test suite
+├── docs/
+│   ├── DEMO.md                   # 5-7 minute presentation script & examiner Q&A
+│   └── PRESENTATION_OUTLINE.md   # Slide-by-slide defense deck outline
+├── requirements.txt              # Backend dependencies
+└── README.md                     # Project documentation
 ```
-
-**Data Flow:**
-1. User inputs farm data (leaf image / soil values / area details) via the **React Dashboard**
-2. The dashboard makes direct REST API requests to the **FastAPI ML Server**
-3. The server validates incoming payloads and routes requests to the appropriate engine in `smart_system/`
-4. Core machine learning predictions are augmented with **Google Gemini LLM** advisory recommendations
-5. The unified JSON response (with Grad-CAM heatmaps, top recommendations, and risks) is returned and rendered on the dashboard
-
-
----
-
-## 📂 Project Structure
-
-```text
-CropProject/
-│
-├── ai_api/                     # 🐍 Python FastAPI ML inference server
-│   ├── api.py                  #    Main FastAPI application & all endpoints
-│   ├── smart_system/           #    Embedded ML engines (symlinked/shared)
-│   └── .env                    #    API keys (Gemini, etc.) — not committed
-│
-├── smart_system/               # 🧠 Core AI orchestration & inference engines
-│   ├── disease_engine.py       #    EfficientNet image classification
-│   ├── crop_engine.py          #    Soil & climate ensemble predictor
-│   ├── yield_engine.py         #    XGBoost regression forecaster
-│   ├── ensemble_engine.py      #    Unified multi-model prediction pipeline
-│   ├── gemini_advisor.py       #    Google Gemini LLM advisory integration
-│   ├── farm_ai_assistant.py    #    Conversational chatbot handler
-│   ├── recommendations.py      #    Rule-based agronomic advisory logic
-│   ├── risk_analysis.py        #    Risk scoring & confidence evaluation
-│   ├── smart_predict.py        #    End-to-end prediction orchestration
-│   ├── report.py               #    Report generation utilities
-│   ├── evaluation.py           #    Model evaluation & metrics
-│   ├── config.py               #    Global system configuration
-│   └── logger.py               #    Structured runtime logging
-│
-├── disease_model/              # 🦠 Disease detection training pipeline (PyTorch)
-│   ├── data/                   #    Raw image datasets (PlantVillage, etc.)
-│   ├── data_prep/              #    Preprocessing & augmentation scripts
-│   ├── models/                 #    Saved model weights (.pt files)
-│   ├── scripts/                #    Training, evaluation, Grad-CAM scripts
-│   └── reports/                #    Training metrics & confusion matrices
-│
-├── crop_model/                 # 🌿 Crop recommendation training pipeline (Scikit-Learn)
-│   ├── data/                   #    Soil & climate CSV datasets
-│   ├── data_prep/              #    Feature engineering & normalization
-│   ├── models/                 #    Saved ensemble model artifacts (.pkl)
-│   ├── scripts/                #    Training, tuning & validation scripts
-│   └── reports/                #    Classification reports & metrics
-│
-├── yield_model/                # 📊 Yield forecasting training pipeline (XGBoost)
-│   ├── data/                   #    Historical yield & climate datasets
-│   ├── data_prep/              #    Label encoding & data cleaning
-│   ├── models/                 #    Saved XGBoost model & encoders
-│   ├── scripts/                #    Training, cross-validation scripts
-│   └── reports/                #    Regression plots, R² / MAE metrics
-│
-├── frontend/                   # ⚛️  React.js web dashboard
-│   ├── src/                    #    Components, pages, hooks, i18n
-│   ├── public/                 #    Static assets
-│   ├── tailwind.config.js      #    Tailwind CSS configuration
-│   └── package.json            #    Frontend dependencies
-│
-├── documentation/              # 📄 Academic & technical documentation
-│   ├── ABOUT.md                #    Detailed project goals, architecture & ML details
-│   ├── WORKING_OF_THE_PROJECT.md #  Detailed technical explanation of system pipeline
-│   └── WORKING_OF_THE_PROJECT.docx # MS Word formatted project report documentation
-├── logs/                       # 🪵 Runtime system logs
-├── reports/                    # 📑 Generated analytical reports
-├── requirements.txt            # Python dependency manifest
-└── .gitignore
-```
-
----
-
-## 💻 Tech Stack
-
-### 🖥️ Frontend
-| Technology | Version | Purpose |
-|---|---|---|
-| React.js | 19 | Component-based UI framework |
-| Tailwind CSS | 3.4 | Utility-first styling |
-| Framer Motion | 12 | Animations & micro-interactions |
-| Recharts | 3.7 | Interactive data visualization |
-| React Router DOM | 7 | Client-side routing |
-| i18next / react-i18next | — | Multi-language internationalization |
-| Lucide React | — | Icon system |
-| Axios | — | HTTP client |
-
-### 🤖 AI / Machine Learning (FastAPI Backend)
-| Technology | Version | Purpose |
-|---|---|---|
-| Python | 3.10+ | Core language |
-| FastAPI | ≥ 0.115 | High-performance ML API server |
-| Uvicorn | ≥ 0.30 | ASGI server |
-| PyTorch / Torchvision | ≥ 2.3 | Deep learning (disease CNN) |
-| Scikit-Learn | ≥ 1.5 | Ensemble modeling (crop recommendation) |
-| XGBoost | ≥ 2.0 | Gradient boosting (yield regression) |
-| LightGBM | ≥ 4.3 | Gradient boosting (ensemble member) |
-| Google Generative AI | ≥ 1.0 | Gemini LLM integration |
-| OpenAI CLIP | — | Visual-semantic features |
-| FAISS | ≥ 1.7 | Similarity search |
-| OpenCV | ≥ 4.8 | Image preprocessing |
-| Pandas / NumPy | — | Data manipulation |
-
-
----
-
-## 🗄️ Datasets
-
-Download the training datasets and place them in the correct directories before running training scripts.
-
-| Module | Dataset | Target Directory |
-|---|---|---|
-| 🦠 Disease Detection | [PlantVillage Dataset ↗](https://drive.google.com/drive/folders/1hMRYfnG-9OKpa8tB_zbzO9Gw2qUYJ8D2?usp=sharing) | `disease_model/data/` |
-| 🌿 Crop Recommendation | [Crop Recommendation Dataset ↗](https://drive.google.com/drive/folders/11-Ld88jJMRRGzNd9bw24utOg51v1GLcc?usp=sharing) | `crop_model/data/` |
-| 📊 Yield Prediction | [Crop Yield Dataset ↗](https://drive.google.com/drive/folders/1SkMuOc498OXxruQy3_EaJsDZy60JF3th?usp=sharing) | `yield_model/data/` |
-
-> **Note:** Pre-trained model weights are stored in each module's `models/` directory. If weights are present, you can skip training and run inference directly.
 
 ---
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-- **Python** 3.10 or higher
-- **Node.js** 18 or higher
-- **npm** 8 or higher
-- A **Google Gemini API key** ([Get one here](https://aistudio.google.com/app/apikey))
+- Python 3.10+ (Python 3.11 recommended)
+- Node.js v18+ and npm
+- Google Gemini API Key
 
----
-
-### Step 1 — Clone the Repository
+### 1. Backend Setup
 ```bash
-git clone https://github.com/FuricBond/smart-agriculture-ai-system.git
-cd smart-agriculture-ai-system
-```
+# Activate virtual environment
+.\venv\Scripts\activate
 
----
-
-### Step 2 — Configure Environment Variables
-Create a `.env` file inside the `ai_api/` directory:
-```bash
-# ai_api/.env
-GEMINI_API_KEY=your_google_gemini_api_key_here
-```
-
----
-
-### Step 3 — Start the Python FastAPI ML Server
-
-> Ensure Python 3.10+ is installed. Using a virtual environment is strongly recommended.
-
-```bash
-# Create and activate virtual environment (recommended)
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-# macOS / Linux
-source venv/bin/activate
-
-# Install all Python dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# Launch the FastAPI server
-cd ai_api
-uvicorn api:app --reload --port 8000
+# Configure environment variables
+# Copy .env.example to .env in workspace root and ai_api/.env
+cp .env.example .env
+cp .env.example ai_api/.env
+# Add your GEMINI_API_KEY inside .env
 ```
-✅ The AI API will be live at **`http://localhost:8000`**  
-📖 Interactive API docs available at **`http://localhost:8000/docs`**
 
----
-
-### Step 4 — Start the React Frontend Dashboard
+### 2. Frontend Setup
 ```bash
-# Open a new terminal at project root
 cd frontend
 npm install
+```
+
+---
+
+## 📚 Knowledge Base Ingestion
+
+To compile the extension literature and generate the dense FAISS vector index:
+```bash
+python smart_system/rag/ingest.py
+```
+Outputs generated:
+- `smart_system/rag/index/rag_chunks.json` (28 semantic chunks with metadata)
+- `smart_system/rag/index/rag_dense.faiss` (3072-dim FAISS IndexFlatIP)
+- `smart_system/rag/index/rag_tfidf.pkl` (Deterministic offline fallback index)
+
+---
+
+## 🧪 Running the Test Suite
+
+Run the 8-point automated test suite:
+```bash
+python -m unittest tests/test_crop_doctor_rag.py -v
+```
+**Test Coverage:**
+- `test_01_disease_inference_integration`: PyTorch model inference & class names verification.
+- `test_02_rag_knowledge_base_integrity`: Extension chunk metadata completeness.
+- `test_03_rag_retrieval_and_source_metadata`: FAISS retrieval and citation generation.
+- `test_04_pydantic_schema_validation`: Strict schema enforcement.
+- `test_05_offline_fallback_and_uncertainty_guard`: Deterministic advice fallback and low-confidence handling.
+- `test_06_crop_doctor_samples_endpoint`: Sample preset catalog availability.
+- `test_07_crop_doctor_analyze_endpoint`: Full end-to-end diagnostic pipeline.
+- `test_08_crop_doctor_follow_up_endpoint`: Multi-turn conversational consultation.
+
+---
+
+## 💻 Running the Application
+
+### 1. Launch FastAPI Backend
+```bash
+python -m uvicorn ai_api.api:app --host 127.0.0.1 --port 8000 --reload
+```
+API runs at: `http://localhost:8000` (Interactive docs at `http://localhost:8000/docs`).
+
+### 2. Launch React Frontend
+```bash
+cd frontend
 npm start
 ```
-✅ The dashboard will open automatically at **`http://localhost:3000`**
-
-
----
-
-## 🛠️ How to Use
-
-### 1. 🔬 Diagnose a Crop Disease
-Navigate to the **Diagnostics Hub** tab.
-- Upload a clear, well-lit photo of a crop leaf.
-- The AI processes the image through the EfficientNet CNN.
-- View the identified disease (or "Healthy" confirmation), confidence score, and treatment recommendations.
-- A Grad-CAM attention heatmap shows which leaf regions influenced the diagnosis.
-
-### 2. 🌱 Get a Crop Recommendation
-Navigate to the **Crop Matrix** tab.
-- Enter your soil test values: **Nitrogen (N), Phosphorus (P), Potassium (K), pH**, rainfall, temperature, and humidity.
-- The ensemble model (Random Forest + XGBoost + LightGBM) recommends the **top 3 most suitable crops**.
-- Gemini AI provides tailored fertilizer and cultivation advice for each recommended crop.
-
-### 3. 📈 Forecast Your Harvest Yield
-Navigate to the **Yield Intelligence** tab.
-- Select your **geographic area**, **target crop**, and **planting year**.
-- The XGBoost regressor predicts the expected **harvest density (hg/ha)**.
-- View interactive historical yield trend charts and AI advice to maximize output.
-
-### 4. 💬 Chat with the Farm AI Assistant
-Navigate to the **AI Assistant** tab.
-- Ask any farming-related question in natural language (e.g., *"What fertilizer should I use for rice in sandy soil?"*).
-- The chatbot is powered by Google Gemini and is trained to respond with agronomic expertise.
+Frontend runs at: `http://localhost:3000`.
 
 ---
 
-## 🔌 API Endpoints Reference
+## 🎤 Presentation & Demo Guide
 
-The FastAPI server provides several production-grade endpoints for prediction, chat, and utility functions:
-
-### 1. 🏥 System Health check
-- **Endpoint:** `GET /health`
-- **Description:** Verifies running state and loading status of all models.
-- **Response:**
-  ```json
-  {
-    "status": "running",
-    "disease_model": true,
-    "ensemble_models": true,
-    "crop_model": true,
-    "yield_model": true,
-    "timestamp": "2026-05-29T16:17:55"
-  }
-  ```
-
-### 2. 🔬 Disease Diagnosis (Ensemble + Grad-CAM)
-- **Endpoint:** `POST /detect-disease`
-- **Request Type:** `multipart/form-data`
-- **Payload:** File input named `file` (image).
-- **Description:** Diagnoses plant leaf diseases using a soft-voting ensemble (EfficientNet-B0, ResNet-50, EfficientNet-B1) and overlays a Grad-CAM attention heatmap.
-
-### 3. 🌱 Crop Recommendation
-- **Endpoint:** `POST /predict-crop`
-- **Request Type:** `application/json`
-- **Payload:**
-  ```json
-  {
-    "Nitrogen": 90.0,
-    "Phosphorus": 42.0,
-    "Potassium": 43.0,
-    "Temperature": 20.87,
-    "Humidity": 82.00,
-    "pH": 6.5,
-    "Rainfall": 202.93
-  }
-  ```
-- **Description:** Recommends the top 3 most suitable crops based on soil nutrients and climate conditions.
-
-### 4. 📈 Yield Prediction & Intelligence
-- **Endpoint:** `POST /predict-yield-v2/full`
-- **Request Type:** `application/json`
-- **Payload:**
-  ```json
-  {
-    "crop": "Rice",
-    "state": "Uttar Pradesh",
-    "season": "Kharif",
-    "year": 2024
-  }
-  ```
-- **Description:** Predicts expected crop yield in hg/ha and returns a Gemini-generated risk assessment and agricultural suggestions.
-
-### 5. 💬 Farm AI Assistant
-- **Endpoint:** `POST /farm-assistant`
-- **Request Type:** `application/json`
-- **Payload:**
-  ```json
-  {
-    "question": "What is the best fertilizer timing for wheat?"
-  }
-  ```
-- **Description:** Real-time conversational AI chatbot expert for agronomy and crop management queries.
-
-### 6. 📊 Yield Trends
-- **Endpoint:** `POST /yield-trends`
-- **Request Type:** `application/json`
-- **Payload:**
-  ```json
-  {
-    "Area": "India",
-    "Crop": "Wheat"
-  }
-  ```
-- **Description:** Returns historical yield records to plot trends on the frontend dashboard.
+Refer to our specialized documentation for presentation defense:
+- **[docs/DEMO.md](docs/DEMO.md)**: A complete 5 to 7 minute click-by-click script with exact narration and examiner Q&A answers.
+- **[docs/PRESENTATION_OUTLINE.md](docs/PRESENTATION_OUTLINE.md)**: Slide-by-slide outline with verified metrics and architectural diagrams.
 
 ---
 
-## 👨‍💻 Team Contributions
+## ⚖️ Ethical Safety & Honest Limitations
 
-
-This project was developed collaboratively by a five-member team, with each member owning one complete module from data preparation through integration.
-
-| # | Role | Module | Key Responsibilities |
-|---|---|---|---|
-| 1 | **Deep Learning & Diagnostics Lead** | Disease Detection | EfficientNet CNN training, data augmentation pipeline, Grad-CAM integration, model evaluation |
-| 2 | **Predictive Soil Modeling & Feature Engineer** | Crop Recommendation | 21-feature engineering pipeline, soft-voting ensemble (RF + XGBoost + LightGBM), input validation guards |
-| 3 | **Yield Forecasting & Analytics Lead** | Yield Prediction | Historical data aggregation, XGBoost regressor, 5-fold CV, R²/MAE/RMSE reporting & visual charts |
-| 4 | **Backend Systems & API Architect** | Backend API | FastAPI server, RESTful endpoints, Node.js proxy, Gemini integration, full pipeline orchestration |
-| 5 | **Frontend Developer & UI/UX Designer** | Dashboard UI | React dashboard, Tailwind CSS, Recharts visualizations, i18n support, API integration |
-
-> Each member contributed equally to the final integrated system through parallel development of independent, interconnected modules.
-
----
-
-## 🔮 Future Improvements
-
-- [ ] **🛰️ Satellite Data Integration** — Auto-map farm areas to pull real-time NDVI and soil moisture data
-- [ ] **⛅ Live Weather API** — Connect to OpenWeatherMap to auto-fill climatic inputs for predictions
-- [ ] **📱 Mobile App** — React Native port for in-field use on smartphones
-- [ ] **📡 IoT Sensor Integration** — Consume live telemetry from on-farm NPK and moisture sensors
-- [ ] **🗺️ Farm Mapping** — Geospatial visualization of field health zones and yield maps
-- [ ] **🔐 User Authentication** — Farmer profile system with historical record tracking
+1. **Advisory Decision Support**: KisanVision AI is an early-warning and decision-support tool. Farmers must verify all chemical interventions against regional agricultural department guidelines and manufacturer container labels.
+2. **Visual Mimicry**: Abiotic factors (sunscald, ozone damage, nitrogen deficiency) can mimic initial foliar fungal spotting. When confidence is below 60%, the system flags uncertainty and requests additional field checks.
+3. **No Unvetted Dosages**: The GenAI layer is strictly forbidden from generating arbitrary pesticide concentrations.
 
 ---
 
 ## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-  <p>Built with ❤️ for the future of farming.</p>
-  <p><i>Smart Agriculture AI System — Empowering farmers with the power of artificial intelligence.</i></p>
-</div>
+This project is licensed under the MIT License.

@@ -66,6 +66,12 @@ crop_model/models/improved_crop_model.pkl
 debug_*.py
 test_*.py
 old_*.py
+!tests/
+!tests/**
+
+# Frontend build & temporary outputs
+frontend/build/
+tmp/
 
 # Root unmanaged files
 *.zip
