@@ -1,0 +1,46 @@
+[
+  {
+    "id": "tomato_early_blight",
+    "title": "Tomato Early Blight",
+    "crop": "Tomato",
+    "growth_stage": "Fruit Set",
+    "symptoms": "Dark brown concentric rings on lower leaves, yellowing halos",
+    "location": "Nashik, Maharashtra",
+    "filename": "tomato_early_blight.jpg",
+    "url": "/samples/tomato_early_blight.jpg",
+    "local_path": "samples\\tomato_early_blight.jpg"
+  },
+  {
+    "id": "potato_late_blight",
+    "title": "Potato Late Blight",
+    "crop": "Potato",
+    "growth_stage": "Vegetative",
+    "symptoms": "Water-soaked dark purplish lesions, rapid wilting in damp weather",
+    "location": "Shimla, Himachal Pradesh",
+    "filename": "potato_late_blight.jpg",
+    "url": "/samples/potato_late_blight.jpg",
+    "local_path": "samples\\potato_late_blight.jpg"
+  },
+  {
+    "id": "tomato_bacterial_spot",
+    "title": "Tomato Bacterial Spot",
+    "crop": "Tomato",
+    "growth_stage": "Flowering",
+    "symptoms": "Small angular dark greasy spots with yellow borders",
+    "location": "Kolar, Karnataka",
+    "filename": "tomato_bacterial_spot.jpg",
+    "url": "/samples/tomato_bacterial_spot.jpg",
+    "local_path": "samples\\tomato_bacterial_spot.jpg"
+  },
+  {
+    "id": "tomato_healthy",
+    "title": "Healthy Tomato Leaf",
+    "crop": "Tomato",
+    "growth_stage": "Vegetative",
+    "symptoms": "Uniform green leaves, no foliar lesions or discoloration",
+    "location": "Pune, Maharashtra",
+    "filename": "tomato_healthy.jpg",
+    "url": "/samples/tomato_healthy.jpg",
+    "local_path": "samples\\tomato_healthy.jpg"
+  }
+]

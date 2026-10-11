@@ -21,6 +21,7 @@ warnings.filterwarnings("ignore")
 
 import os
 import sys
+import json
 import shutil
 import logging
 import platform
@@ -44,6 +45,8 @@ import uvicorn
 
 from smart_system.recommendations import RecommendationEngine
 from smart_system.farm_ai_assistant import generate_farming_response
+from smart_system.rag.advisor import get_crop_doctor_advisor
+from smart_system.rag.retriever import get_retriever
 
 # ══════════════════════════════════════════════════════════════
 # PART 6 — LOGGING SYSTEM
@@ -81,10 +84,10 @@ def log_error(msg: str):
     logger.error(msg)
 
 def log_request(endpoint: str, payload: dict = None):
-    logger.info(f"REQUEST  {endpoint} — {payload or ''}")
+    logger.info(f"REQUEST  {endpoint} - {payload or ''}")
 
 def log_prediction(model: str, result: str):
-    logger.info(f"PREDICT  [{model}] → {result}")
+    logger.info(f"PREDICT  [{model}] -> {result}")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -127,6 +130,11 @@ app.add_middleware(
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "tmp", "plant_doctor_output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 app.mount("/outputs", StaticFiles(directory=OUTPUT_DIR), name="outputs")
+
+# ── Serve Demo Samples ───────────────────────────────────────
+SAMPLES_DIR = os.path.join(PROJECT_ROOT, "samples")
+os.makedirs(SAMPLES_DIR, exist_ok=True)
+app.mount("/samples", StaticFiles(directory=SAMPLES_DIR), name="samples")
 
 def cleanup_outputs(max_files: int = 20):
     """Keep only the latest N images in the output directory."""
@@ -418,6 +426,13 @@ class YieldTrendRequest(BaseModel):
 class FarmAssistantRequest(BaseModel):
     question: str
 
+class FollowUpRequest(BaseModel):
+    case_context: dict
+    retrieved_evidence: list = []
+    assessment: dict
+    question: str
+    history: Optional[list] = None
+
 
 # ══════════════════════════════════════════════════════════════
 # PART 5 — STRUCTURED ERROR RESPONSE HELPER
@@ -445,6 +460,178 @@ async def health_check():
         "yield_model":     _yield_loaded,
         "timestamp":       datetime.now().isoformat()
     }
+
+
+# ══════════════════════════════════════════════════════════════
+# CROP DOCTOR — FLAGSHIP RAG & GENAI REASONING ENDPOINTS
+# ══════════════════════════════════════════════════════════════
+
+@app.get("/api/crop-doctor/samples")
+async def get_crop_doctor_samples():
+    """Returns curated demo samples for instant one-click presentation demo."""
+    samples_file = os.path.join(PROJECT_ROOT, "samples", "samples.json")
+    if os.path.exists(samples_file):
+        try:
+            with open(samples_file, "r", encoding="utf-8") as f:
+                samples = json.load(f)
+            return {"status": "success", "samples": samples}
+        except Exception as e:
+            log_error(f"Failed to read samples: {e}")
+    return {"status": "success", "samples": []}
+
+
+@app.post("/api/crop-doctor/analyze")
+async def analyze_crop(
+    request: Request,
+    file: Optional[UploadFile] = File(None),
+    sample_id: Optional[str] = Form(None),
+    crop: Optional[str] = Form(None),
+    growth_stage: Optional[str] = Form(None),
+    symptoms: Optional[str] = Form(None),
+    location: Optional[str] = Form(None),
+):
+    """
+    Consolidated Crop Doctor Workflow:
+      1. Image Ingestion (Uploaded file or preset demo sample)
+      2. Computer Vision Disease Inference (ResNet / EfficientNet)
+      3. Grad-CAM visual lesion localization (if pipeline loaded)
+      4. Agricultural Extension Literature Retrieval (FAISS vector RAG)
+      5. Gemini 3.8 Flash Grounded Clinical Assessment (Pydantic schema)
+    """
+    log_request("/api/crop-doctor/analyze", {
+        "filename": file.filename if file else None,
+        "sample_id": sample_id,
+        "crop": crop
+    })
+
+    if not _disease_loaded or disease_engine is None:
+        error_response("Disease model is not loaded", 503)
+
+    temp_dir = os.path.join(PROJECT_ROOT, "tmp")
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_file_to_clean = None
+
+    try:
+        # Determine image file path
+        if file and file.filename:
+            ext = os.path.splitext(file.filename or "")[1].lower()
+            if ext not in VALID_IMAGE_EXTENSIONS:
+                raise HTTPException(
+                    status_code=400,
+                    detail={"status": "error", "message": f"Invalid image format ({ext}). Supported: JPG, PNG, WEBP."}
+                )
+            safe_name = f"cropdoc_{datetime.now().strftime('%H%M%S%f')}{ext}"
+            file_path = os.path.join(temp_dir, safe_name)
+            with open(file_path, "wb") as buf:
+                shutil.copyfileobj(file.file, buf)
+            temp_file_to_clean = file_path
+
+        elif sample_id:
+            sample_path = os.path.join(PROJECT_ROOT, "samples", f"{sample_id}.jpg")
+            if not os.path.exists(sample_path):
+                raise HTTPException(status_code=404, detail={"status": "error", "message": f"Sample '{sample_id}' not found."})
+            file_path = sample_path
+        else:
+            raise HTTPException(status_code=400, detail={"status": "error", "message": "Either an image file or sample_id must be provided."})
+
+        # 1. Computer Vision Prediction
+        cv_result = disease_engine.predict(file_path, top_k=5)
+        if not cv_result.get("success"):
+            error_response(cv_result.get("error", "Disease model inference failed"))
+
+        disease_name = cv_result["disease_name"]
+        confidence = float(cv_result["confidence"])
+        plant_detected = cv_result.get("plant", "Crop")
+        condition_detected = cv_result.get("condition", disease_name)
+        confidence_level = cv_result.get("confidence_level", "HIGH" if confidence >= 80 else ("MODERATE" if confidence >= 60 else "LOW"))
+
+        # Format top predictions
+        raw_top = cv_result.get("top_predictions", [])
+        formatted_top = []
+        for p in raw_top[:5]:
+            if isinstance(p, (tuple, list)) and len(p) >= 2:
+                formatted_top.append({"disease": p[0], "confidence": round(float(p[1]), 2)})
+            elif isinstance(p, dict):
+                lbl = p.get("disease") or p.get("label") or "Unknown"
+                cnf = p.get("confidence") or p.get("confidence_pct") or 0.0
+                formatted_top.append({"disease": lbl, "confidence": round(float(cnf), 2)})
+
+        # Optional Grad-CAM Heatmap if PlantDoctorPipeline is available
+        heatmap_url = ""
+        heatmap_b64 = ""
+        if plant_doctor_pipeline is not None:
+            try:
+                doc_diag = plant_doctor_pipeline.diagnose(file_path, top_k=3)
+                heatmap_path = doc_diag.get("heatmap_path")
+                if heatmap_path and os.path.exists(heatmap_path):
+                    import base64
+                    with open(heatmap_path, "rb") as hf:
+                        heatmap_b64 = base64.b64encode(hf.read()).decode("utf-8")
+                    base_url = str(request.base_url).rstrip("/")
+                    heatmap_url = f"{base_url}/outputs/{os.path.basename(heatmap_path)}"
+                    cleanup_outputs(max_files=20)
+            except Exception as cam_err:
+                log_error(f"Grad-CAM generation skipped: {cam_err}")
+
+        # 2. RAG Advisor Analysis
+        advisor = get_crop_doctor_advisor()
+        rag_output = advisor.analyze(
+            prediction=disease_name,
+            confidence=confidence,
+            plant=plant_detected,
+            condition=condition_detected,
+            top_predictions=formatted_top,
+            farmer_crop=crop,
+            growth_stage=growth_stage,
+            symptoms=symptoms,
+            location=location,
+        )
+
+        log_prediction("CROP_DOCTOR", f"{disease_name} ({confidence:.1f}%) | RAG Citations: {len(rag_output.get('assessment', {}).get('source_references', []))}")
+
+        return {
+            "status": "success",
+            "prediction": disease_name,
+            "confidence": round(confidence, 2),
+            "plant": plant_detected,
+            "condition": condition_detected,
+            "confidence_level": confidence_level,
+            "top_predictions": formatted_top,
+            "heatmap_url": heatmap_url,
+            "heatmap_b64": heatmap_b64,
+            "assessment": rag_output.get("assessment", {}),
+            "retrieved_evidence": rag_output.get("retrieved_evidence", []),
+            "case_context": rag_output.get("case_context", {}),
+            "offline_mode": rag_output.get("offline_mode", False),
+        }
+
+    finally:
+        if temp_file_to_clean and os.path.exists(temp_file_to_clean):
+            try:
+                os.remove(temp_file_to_clean)
+            except Exception:
+                pass
+
+
+@app.post("/api/crop-doctor/follow-up")
+async def crop_doctor_follow_up(request: FollowUpRequest):
+    """
+    Interactive follow-up consultation grounded in the active case assessment.
+    """
+    log_request("/api/crop-doctor/follow-up", {"question": request.question})
+    try:
+        advisor = get_crop_doctor_advisor()
+        response = advisor.follow_up(
+            case_context=request.case_context,
+            retrieved_evidence=request.retrieved_evidence,
+            assessment=request.assessment,
+            user_question=request.question,
+            conversation_history=request.history,
+        )
+        return response
+    except Exception as e:
+        log_error(f"Crop doctor follow up error: {e}")
+        error_response(f"Follow-up error: {e}")
 
 
 # ══════════════════════════════════════════════════════════════
