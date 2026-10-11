@@ -34,12 +34,12 @@ const LanguageSwitcher = () => {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl
-          bg-slate-100 border border-slate-200 text-slate-700
-          hover:bg-slate-200/70 hover:text-slate-900
-          transition-all duration-150 text-xs font-semibold"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md
+          bg-[#FAF7F0] border border-[#E7E0D2] text-botanical-950
+          hover:bg-[#F2ECE0]
+          transition-all duration-150 font-mono text-[11px] font-medium"
       >
-        <Globe className="w-3.5 h-3.5 text-forest-700" />
+        <Globe className="w-3.5 h-3.5 text-botanical-700" />
         <span className="tracking-wider">{active.native}</span>
       </button>
 
@@ -47,12 +47,12 @@ const LanguageSwitcher = () => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 w-36
-              bg-white border border-slate-200 rounded-xl shadow-xl
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.12 }}
+            className="absolute right-0 mt-1.5 w-36
+              bg-white border border-[#E2D9C8] rounded-md shadow-md
               overflow-hidden z-50 py-1"
           >
             {LANGUAGES.map((lang) => {
@@ -64,13 +64,13 @@ const LanguageSwitcher = () => {
                   className={`w-full flex items-center justify-between px-3.5 py-2
                     text-xs transition-all duration-150
                     ${isActive
-                      ? "bg-emerald-50 text-emerald-800 font-bold"
-                      : "text-slate-700 hover:bg-slate-50"
+                      ? "bg-botanical-50 text-botanical-900 font-semibold"
+                      : "text-[#3E5244] hover:bg-[#FAF7F0]"
                     }`}
                 >
                   <span>{lang.label}</span>
                   {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-botanical-600" />
                   )}
                 </button>
               );

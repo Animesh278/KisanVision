@@ -145,7 +145,7 @@ class CropDoctorAdvisor:
 
         try:
             from google import genai
-            client = genai.Client(api_key=api_key)
+            client = genai.Client(api_key=api_key, http_options={"timeout": 15000})
 
             prompt = f"""You are the KisanVision Agricultural Diagnostic Engine, an evidence-grounded AI crop doctor.
 
@@ -245,7 +245,7 @@ STRICT SAFETY AND GROUNDING RULES:
 
         try:
             from google import genai
-            client = genai.Client(api_key=api_key)
+            client = genai.Client(api_key=api_key, http_options={"timeout": 15000})
 
             # Format previous conversation
             history_text = ""

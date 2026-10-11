@@ -1,156 +1,143 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Stethoscope, ArrowRight, ShieldCheck, Cpu, BookOpen, 
-  Sparkles, CheckCircle2, AlertCircle, Eye, FileText, ChevronRight
+  Stethoscope, ArrowUpRight, ShieldCheck, Cpu, 
+  CheckCircle2, AlertCircle, ArrowRight
 } from 'lucide-react';
 
 const Home = () => {
   return (
-    <div className="space-y-20 pb-16">
+    <div className="space-y-24 pb-20">
       
-      {/* ── HERO SECTION ────────────────────────────────────────── */}
-      <section className="relative pt-6 sm:pt-12">
+      {/* ── 1. SIGNATURE HERO COMPOSITION ────────────────────────── */}
+      <section className="relative pt-6 sm:pt-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Top Series Identifier */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E7E0D2] mb-8">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[11px] tracking-widest uppercase text-[#556B5B] font-medium">
+                AI CROP INTELLIGENCE // FIELD RESEARCH SERIES
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1E683F]"></span>
+              <span className="font-mono text-[11px] text-[#788A7C]">
+                DOC-REF: KV-2024.08
+              </span>
+            </div>
+            <div className="font-mono text-[11px] text-[#788A7C] hidden md:block">
+              52 FOLIAR PATHOGENS &bull; FAISS VECTOR RETRIEVAL &bull; GEMINI 3.8 REASONING
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             
-            {/* Left Column: Value Proposition */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            {/* Left Column: Editorial Headline & Stance */}
+            <div className="lg:col-span-7 space-y-7 text-left">
               
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Next-Gen Agricultural AI Decision Support</span>
+              <div className="space-y-3">
+                <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-normal text-botanical-950 tracking-tight leading-[1.05]">
+                  Clinical intelligence for the living canopy.
+                </h1>
+                <p className="text-base sm:text-lg text-[#3E5244] leading-relaxed max-w-xl font-sans pt-1">
+                  Bridging deep convolutional vision with agricultural extension literature. KisanVision replaces speculative chatbot guesswork with verifiable, evidence-grounded plant pathology.
+                </p>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-forest-950 leading-[1.15]">
-                Grounded Crop Doctor for Precision Plant Health
-              </h1>
-
-              <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-                Combines a 52-class deep learning Computer Vision model with 
-                <span className="font-semibold text-slate-800"> Retrieval-Augmented Generation (RAG)</span>. 
-                Delivers clinical diagnosis, verifiable extension literature citations, and practical field action plans.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              {/* Primary Actions */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
                 <Link
                   to="/crop-doctor"
-                  className="btn-accent text-base py-3.5 px-8 shadow-sm hover:shadow-md"
+                  className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-md bg-botanical-950 text-paper-50 font-medium text-sm border border-botanical-800 hover:bg-botanical-900 active:scale-[0.99] transition-all shadow-sm group"
                 >
-                  <Stethoscope className="w-5 h-5" />
+                  <Stethoscope className="w-4 h-4 text-botanical-300" />
                   <span>Analyze Your Crop</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  <ArrowUpRight className="w-4 h-4 text-botanical-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
 
                 <Link
                   to="/how-it-works"
-                  className="btn-outline text-base py-3.5 px-6"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-md bg-[#FAF7F0] text-botanical-900 font-medium text-sm border border-[#E0D7C5] hover:bg-[#F2ECE0] active:scale-[0.99] transition-all"
                 >
-                  <Cpu className="w-4 h-4 text-forest-800" />
+                  <Cpu className="w-4 h-4 text-[#556B5B]" />
                   <span>Explore RAG Architecture</span>
                 </Link>
               </div>
 
-              {/* Key Trust Metrics (Real & Verified) */}
-              <div className="pt-6 border-t border-slate-200/90 grid grid-cols-3 gap-4 text-left">
+              {/* Research Baseline Metrics */}
+              <div className="pt-8 border-t border-[#E7E0D2] grid grid-cols-3 gap-6 text-left">
                 <div>
-                  <div className="text-2xl font-bold text-forest-900 font-heading">52 Classes</div>
-                  <div className="text-xs text-slate-500 font-medium">Foliar Pathogens Covered</div>
+                  <div className="font-editorial text-3xl font-medium text-botanical-950">52</div>
+                  <div className="font-mono text-[10px] tracking-wider uppercase text-[#67796C] mt-0.5">Pathogen Classes</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600 font-heading">Vector RAG</div>
-                  <div className="text-xs text-slate-500 font-medium">Extension Grounded</div>
+                  <div className="font-editorial text-3xl font-medium text-botanical-700">3072-d</div>
+                  <div className="font-mono text-[10px] tracking-wider uppercase text-[#67796C] mt-0.5">Dense Vector RAG</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-forest-900 font-heading">Zero Hallucination</div>
-                  <div className="text-xs text-slate-500 font-medium">Traceable Citations</div>
+                  <div className="font-editorial text-3xl font-medium text-botanical-950">100%</div>
+                  <div className="font-mono text-[10px] tracking-wider uppercase text-[#67796C] mt-0.5">Cited Evidence</div>
                 </div>
               </div>
 
             </div>
 
-            {/* Right Column: Realistic Live Diagnostic Preview */}
+            {/* Right Column: High-Resolution Botanical Specimen Plate */}
             <div className="lg:col-span-5">
-              <div className="agri-card-elevated p-6 bg-white relative overflow-hidden">
+              <div className="relative bg-[#F4EFE6] p-3.5 sm:p-4 rounded-xl border border-[#DFD6C4] shadow-sm">
                 
-                {/* Status Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                {/* Specimen Header Ribbon */}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E2D9C8]">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                      Sample Case Diagnostic
+                    <span className="w-2 h-2 rounded-full bg-[#1E683F]"></span>
+                    <span className="font-mono text-[10px] tracking-widest uppercase font-semibold text-botanical-900">
+                      BOTANICAL SPECIMEN PLATE
                     </span>
                   </div>
-                  <span className="badge-high">
-                    <ShieldCheck className="w-3.5 h-3.5" /> 98.7% Verified Confidence
+                  <span className="font-mono text-[10px] text-[#738477]">
+                    REF // CANOPY-042
                   </span>
                 </div>
 
-                {/* Leaf Visual & Prediction Box */}
-                <div className="py-4 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 flex-shrink-0 relative">
-                      <img
-                        src="/samples/tomato_early_blight.jpg"
-                        alt="Tomato Early Blight Leaf"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Host: Tomato (Solanum lycopersicum)</div>
-                      <h3 className="text-lg font-bold text-slate-900 leading-snug">
-                        Tomato Early Blight
-                      </h3>
-                      <p className="text-xs text-slate-500 font-mono mt-0.5">
-                        Pathogen: Alternaria solani
-                      </p>
-                    </div>
+                {/* Macro Crop Photograph */}
+                <div className="relative rounded-lg overflow-hidden bg-[#10241A] aspect-[4/3] border border-[#D5C9B4]">
+                  <img
+                    src="/hero_botanical.jpg"
+                    alt="Botanical Leaf Specimen"
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Scientific calibration overlays */}
+                  <div className="absolute top-3 left-3 bg-[#0A1811]/85 backdrop-blur-xs text-[#E1EBE4] px-2.5 py-1 rounded border border-[#274834] font-mono text-[10px]">
+                    SPECTRAL VEIN MAPPING
                   </div>
-
-                  {/* Grounded Summary */}
-                  <div className="p-3.5 rounded-xl bg-forest-50/60 border border-forest-100 text-xs text-slate-700 leading-relaxed">
-                    <span className="font-semibold text-forest-900">Clinical Assessment:</span> Concentric ring lesions with chlorotic halos detected on lower canopy foliage. Disease pressure is at initial stage; immediate cultural sanitation recommended.
+                  
+                  <div className="absolute bottom-3 right-3 bg-[#0A1811]/85 backdrop-blur-xs text-[#E1EBE4] px-2.5 py-1 rounded border border-[#274834] font-mono text-[10px]">
+                    CONFIDENCE: 98.7%
                   </div>
-
-                  {/* Verifiable Extension Citation */}
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1.5">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-800">
-                      <BookOpen className="w-3.5 h-3.5 text-forest-700" />
-                      <span>Retrieved Extension Literature:</span>
-                    </div>
-                    <div className="text-xs text-slate-600 italic">
-                      "ICAR-IIPR & Extension IPM Guide: Solanaceous Pathology [EXT-SOL-2024-TOM], Section 1"
-                    </div>
-                  </div>
-
-                  {/* Immediate Action Chips */}
-                  <div className="space-y-1.5">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                      Prioritized Field Actions:
-                    </div>
-                    <div className="space-y-1 text-xs">
-                      <div className="flex items-center gap-2 text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                        <span>Prune infected lower foliage during dry weather</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                        <span>Cease overhead sprinklers; switch to furrow/drip</span>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
 
-                {/* Card Action */}
-                <div className="pt-4 border-t border-slate-100">
+                {/* Specimen Field Notes */}
+                <div className="mt-4 pt-3 border-t border-[#E2D9C8] space-y-2 text-left">
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span className="text-[#647769]">TARGET HOST:</span>
+                    <span className="font-medium text-botanical-950 italic font-editorial text-sm">Solanum lycopersicum</span>
+                  </div>
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span className="text-[#647769]">DIAGNOSIS PIPELINE:</span>
+                    <span className="text-botanical-800">PyTorch CNN &rarr; FAISS Vector RAG</span>
+                  </div>
+                  <div className="p-2.5 rounded bg-[#ECE5D6] border border-[#DDD3C0] text-[11px] text-[#445648] leading-relaxed">
+                    <strong>Field Observation:</strong> Grounded extension protocols require cultural canopy sanitation prior to fungicide application, limiting chemical resistance.
+                  </div>
+                </div>
+
+                <div className="mt-3">
                   <Link
                     to="/crop-doctor?sample=tomato_early_blight"
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-forest-100 text-slate-800 hover:text-forest-900 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                    className="w-full py-2.5 px-3 rounded bg-botanical-950 hover:bg-botanical-900 text-paper-50 font-mono text-xs flex items-center justify-center gap-2 transition-colors"
                   >
-                    <span>Test This Exact Case in Crop Doctor</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <span>Test Tomato Early Blight Sample</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-botanical-400" />
                   </Link>
                 </div>
 
@@ -161,285 +148,350 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── 3-STEP WORKFLOW SECTION ────────────────────────────── */}
+      {/* ── 2. THE THREE-STAGE DIAGNOSTIC METHODOLOGY ────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-            Systematic Process
+        
+        <div className="border-t border-[#E7E0D2] pt-14 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <span className="font-mono text-[11px] tracking-widest uppercase text-[#556B5B] font-medium">
+                METHODOLOGY & EXECUTION
+              </span>
+              <h2 className="font-editorial text-3xl sm:text-4xl text-botanical-950 font-normal">
+                How KisanVision Diagnoses Your Crop
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-[#4E6253] max-w-md font-sans">
+              A deterministic two-stage pipeline separating computer vision inference from generative language synthesis.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-forest-950">
-            How KisanVision Diagnoses Your Crop
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Unlike superficial wrappers, KisanVision runs a verifiable two-stage diagnostic pipeline: 
-            deep learning vision inference followed by semantic extension retrieval and grounded reasoning.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Step 1 */}
-          <div className="agri-card p-6 space-y-4 hover:border-forest-400 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-forest-50 border border-forest-200 text-forest-800 flex items-center justify-center font-bold text-lg font-heading">
-              01
+          <div className="p-6 rounded-xl bg-white border border-[#E7E0D2] space-y-4 hover:border-botanical-300 transition-colors text-left">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-semibold text-botanical-800 px-2 py-0.5 rounded bg-botanical-50 border border-botanical-200">
+                PHASE 01
+              </span>
+              <span className="font-mono text-[10px] text-[#788A7C]">IMAGE INGESTION</span>
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Leaf Image Ingestion
+            <h3 className="font-editorial text-2xl text-botanical-950 font-normal">
+              Canopy & Specimen Intake
             </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Upload a photograph of the affected leaf or select from verified demonstration samples. 
-              The system validates dimensions, file integrity, and extracts host context.
+            <p className="text-xs text-[#4A5D50] leading-relaxed">
+              Upload a photograph of the symptomatic crop leaf or select from verified demonstration plates. Dimensions are normalized and validated for RGB channel fidelity.
             </p>
-            <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1 pt-2">
-              <CheckCircle2 className="w-4 h-4" /> Supports Tomato, Potato, Corn, Rice & Fruits
+            <div className="pt-2 border-t border-[#F0EBE0] font-mono text-[11px] text-[#5A6D5F] flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-botanical-600" />
+              <span>Supports Solanaceous, Cereals, and Fruits</span>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="agri-card p-6 space-y-4 hover:border-forest-400 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold text-lg font-heading">
-              02
+          <div className="p-6 rounded-xl bg-white border border-[#E7E0D2] space-y-4 hover:border-botanical-300 transition-colors text-left">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-semibold text-botanical-800 px-2 py-0.5 rounded bg-botanical-50 border border-botanical-200">
+                PHASE 02
+              </span>
+              <span className="font-mono text-[10px] text-[#788A7C]">CV &amp; DENSE RETRIEVAL</span>
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Vision CNN + FAISS Vector RAG
+            <h3 className="font-editorial text-2xl text-botanical-950 font-normal">
+              Vision CNN &amp; Vector Matching
             </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              The PyTorch vision model calculates 52-class disease probabilities. 
-              Simultaneously, the FAISS vector database retrieves relevant extension literature 
-              using dense embeddings.
+            <p className="text-xs text-[#4A5D50] leading-relaxed">
+              PyTorch backbone outputs 52-class softmax logits. Concurrently, dense query embeddings probe our FAISS vector index of verified extension literature for matching agronomic guidance.
             </p>
-            <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1 pt-2">
-              <CheckCircle2 className="w-4 h-4" /> 3072-Dim Embeddings + Extension Guides
+            <div className="pt-2 border-t border-[#F0EBE0] font-mono text-[11px] text-[#5A6D5F] flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-botanical-600" />
+              <span>3072-Dimensional Dense Vectors</span>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="agri-card p-6 space-y-4 hover:border-forest-400 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-forest-900 text-emerald-400 flex items-center justify-center font-bold text-lg font-heading">
-              03
+          <div className="p-6 rounded-xl bg-white border border-[#E7E0D2] space-y-4 hover:border-botanical-300 transition-colors text-left">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-semibold text-botanical-800 px-2 py-0.5 rounded bg-botanical-50 border border-botanical-200">
+                PHASE 03
+              </span>
+              <span className="font-mono text-[10px] text-[#788A7C]">CLINICAL SYNTHESIS</span>
             </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Grounded Gemini Synthesis
+            <h3 className="font-editorial text-2xl text-botanical-950 font-normal">
+              Grounded Gemini Reasoning
             </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Gemini 3.8 Flash reasons over the CV prediction, farmer symptoms, and retrieved evidence. 
-              It enforces strict Pydantic schemas, generates citations, and answers follow-up questions.
+            <p className="text-xs text-[#4A5D50] leading-relaxed">
+              Gemini 3.8 Flash reasons over the vision prediction and retrieved extension excerpts. Structured Pydantic schemas enforce cultural, biological, and chemical safety boundaries.
             </p>
-            <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1 pt-2">
-              <CheckCircle2 className="w-4 h-4" /> Structured Schema with Traceable Sources
+            <div className="pt-2 border-t border-[#F0EBE0] font-mono text-[11px] text-[#5A6D5F] flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-botanical-600" />
+              <span>Traceable Document Citations</span>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* ── TECHNICAL INNOVATION / COMPARISON SECTION ──────────── */}
+      {/* ── 3. TECHNICAL PROBLEM / EVIDENCE GROUNDING ──────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-forest-900 text-white rounded-3xl p-8 sm:p-12 overflow-hidden relative">
+        <div className="bg-[#0A1B12] text-[#F3EFE6] rounded-2xl p-8 sm:p-12 border border-[#1A3827]">
           
-          <div className="max-w-3xl space-y-4 mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-400/30">
-              GenAI Engineering Contribution
+          <div className="max-w-3xl space-y-3 mb-10 text-left">
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase px-2 py-0.5 rounded bg-[#132E20] border border-[#235036] text-[#A6C4AF]">
+              ACADEMIC &amp; AGRONOMIC COMPARISON
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Why RAG is Mandatory for Agricultural AI
+            <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#FAF7F0] tracking-tight">
+              Why Unconstrained LLMs Fail in Agriculture
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              A general-purpose LLM chatbot cannot be trusted in agronomy. It invents pesticide rates, 
-              misdiagnoses look-alike lesions, and has no grounding in local extension guidelines.
+            <p className="text-xs sm:text-sm text-[#A8BDB0] leading-relaxed">
+              Agronomic decision support demands strict adherence to university extension protocols. General chatbots invent pesticide rates and recommend restricted chemicals without safety grounding.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             
-            {/* The Old / Basic Way */}
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <div className="flex items-center gap-2 text-rose-400 font-bold text-sm">
-                <AlertCircle className="w-4 h-4" />
-                <span>Plain Chatbot Wrapper (Unreliable)</span>
+            {/* The Unreliable Chatbot */}
+            <div className="p-6 rounded-xl bg-[#0F261B] border border-[#1E4330] space-y-4">
+              <div className="flex items-center gap-2 text-[#E87A5D] font-mono text-xs font-semibold uppercase">
+                <AlertCircle className="w-4 h-4 text-[#E87A5D]" />
+                <span>Standard AI Chatbot (Ungrounded)</span>
               </div>
-              <ul className="space-y-2 text-xs text-slate-300 leading-relaxed">
-                <li>• Hallucinates arbitrary chemical dosages and unverified brand names.</li>
-                <li>• No connection to actual Computer Vision model logits or confidence scores.</li>
-                <li>• Cannot provide verifiable bibliographic sources or extension citations.</li>
-                <li>• Overconfident advice even when leaf photos are blurry or ambiguous.</li>
+              <ul className="space-y-2.5 text-xs text-[#B2C5B9] leading-relaxed">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#E87A5D] font-bold">&times;</span>
+                  <span>Invents arbitrary chemical application dosages without label context.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#E87A5D] font-bold">&times;</span>
+                  <span>No connection to actual Computer Vision model logits or confidence values.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#E87A5D] font-bold">&times;</span>
+                  <span>Cannot provide verifiable bibliographic citations to agricultural bulletins.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#E87A5D] font-bold">&times;</span>
+                  <span>Falsely confident output even when leaf photos are blurry or ambiguous.</span>
+                </li>
               </ul>
             </div>
 
-            {/* The KisanVision RAG Way */}
-            <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 space-y-3">
-              <div className="flex items-center gap-2 text-emerald-300 font-bold text-sm">
-                <ShieldCheck className="w-4 h-4" />
-                <span>KisanVision Grounded RAG (Presentation-Ready)</span>
+            {/* KisanVision RAG */}
+            <div className="p-6 rounded-xl bg-[#143324] border border-[#276142] space-y-4">
+              <div className="flex items-center gap-2 text-[#68D391] font-mono text-xs font-semibold uppercase">
+                <ShieldCheck className="w-4 h-4 text-[#68D391]" />
+                <span>KisanVision Grounded RAG Platform</span>
               </div>
-              <ul className="space-y-2 text-xs text-emerald-100 leading-relaxed">
-                <li>• Dual validation: Deterministic PyTorch CNN + vector literature retrieval.</li>
-                <li>• Explicit separation between Computer Vision prediction and LLM reasoning.</li>
-                <li>• Every recommendation cites verified extension manuals (e.g. EXT-SOL-2024-TOM).</li>
-                <li>• Built-in uncertainty quantification when confidence is low or info is missing.</li>
+              <ul className="space-y-2.5 text-xs text-[#D8EADB] leading-relaxed">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#68D391] flex-shrink-0 mt-0.5" />
+                  <span>Dual validation: PyTorch CNN probability + vector literature retrieval.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#68D391] flex-shrink-0 mt-0.5" />
+                  <span>Strict architectural boundary between image inference and LLM explanation.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#68D391] flex-shrink-0 mt-0.5" />
+                  <span>Every recommendation cites verified extension manuals (e.g. EXT-SOL-2024-TOM).</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#68D391] flex-shrink-0 mt-0.5" />
+                  <span>Built-in uncertainty indicators when confidence is low or symptoms diverge.</span>
+                </li>
               </ul>
             </div>
 
           </div>
 
-          <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-slate-400 font-medium">
-              Want to see the raw logits, retrieved text chunks, and prompt schema?
+          <div className="mt-8 pt-6 border-t border-[#1C3E2B] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="font-mono text-xs text-[#8BA594]">
+              INSPECTION: Softmax logits, retrieved chunks &amp; Pydantic schema
             </span>
             <Link
               to="/how-it-works"
-              className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#7EE7A6] hover:text-white transition-colors"
             >
-              <span>Inspect Full Pipeline Diagram</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View Interactive Architecture Diagram</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
         </div>
       </section>
 
-      {/* ── DEMO PRESET SAMPLES SECTION ────────────────────────── */}
+      {/* ── 4. ZERO-RISK DEMONSTRATION CASES ───────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 text-left">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-              Zero-Risk Presentation Demos
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-forest-950">
-              Test One-Click Demonstration Cases
+            <span className="font-mono text-[11px] tracking-widest uppercase text-[#556B5B] font-medium">
+              VERIFIED FIELD SPECIMENS
+            </span>
+            <h2 className="font-editorial text-3xl sm:text-4xl text-botanical-950 font-normal">
+              One-Click Demonstration Cases
             </h2>
           </div>
           <Link
             to="/crop-doctor"
-            className="text-sm font-semibold text-forest-800 hover:text-forest-950 flex items-center gap-1"
+            className="text-xs font-mono font-medium text-botanical-900 hover:text-botanical-700 flex items-center gap-1.5"
           >
             <span>Open Custom Upload</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           
-          {/* Sample 1 */}
+          {/* Specimen 1 */}
           <Link
             to="/crop-doctor?sample=tomato_early_blight"
-            className="agri-card p-4 space-y-3 group hover:border-forest-400 hover:shadow-md transition-all"
+            className="p-3.5 rounded-xl bg-white border border-[#E7E0D2] group hover:border-botanical-400 transition-all text-left flex flex-col"
           >
-            <div className="h-36 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+            <div className="h-40 rounded-lg overflow-hidden bg-[#F4EFE6] border border-[#E0D7C5] mb-3">
               <img
                 src="/samples/tomato_early_blight.jpg"
                 alt="Tomato Early Blight"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
               />
             </div>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                Tomato
-              </span>
-              <h4 className="text-sm font-bold text-slate-900 mt-1 group-hover:text-forest-900 transition-colors">
+            <div className="space-y-1 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-wider uppercase text-botanical-800 bg-[#E8EFEA] px-1.5 py-0.5 rounded">
+                  TOMATO
+                </span>
+                <span className="font-mono text-[10px] text-[#758778]">EXT-SOL-TOM</span>
+              </div>
+              <h4 className="font-editorial text-lg text-botanical-950 font-medium pt-1">
                 Tomato Early Blight
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
-                Concentric target-board rings on lower foliage.
+              <p className="text-xs text-[#526557] line-clamp-2">
+                Concentric target-board necrotic lesions with chlorotic halos on lower foliage.
               </p>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#F0EBE0] font-mono text-[11px] text-botanical-800 flex items-center justify-between">
+              <span>Run Diagnostic</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
-          {/* Sample 2 */}
+          {/* Specimen 2 */}
           <Link
             to="/crop-doctor?sample=potato_late_blight"
-            className="agri-card p-4 space-y-3 group hover:border-forest-400 hover:shadow-md transition-all"
+            className="p-3.5 rounded-xl bg-white border border-[#E7E0D2] group hover:border-botanical-400 transition-all text-left flex flex-col"
           >
-            <div className="h-36 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+            <div className="h-40 rounded-lg overflow-hidden bg-[#F4EFE6] border border-[#E0D7C5] mb-3">
               <img
                 src="/samples/potato_late_blight.jpg"
                 alt="Potato Late Blight"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
               />
             </div>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
-                Potato
-              </span>
-              <h4 className="text-sm font-bold text-slate-900 mt-1 group-hover:text-forest-900 transition-colors">
+            <div className="space-y-1 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-wider uppercase text-[#8D4A1B] bg-[#FDF0E6] px-1.5 py-0.5 rounded">
+                  POTATO
+                </span>
+                <span className="font-mono text-[10px] text-[#758778]">EXT-TUB-POT</span>
+              </div>
+              <h4 className="font-editorial text-lg text-botanical-950 font-medium pt-1">
                 Potato Late Blight
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
-                Water-soaked purplish lesions with rapid blight spread.
+              <p className="text-xs text-[#526557] line-clamp-2">
+                Water-soaked purplish lesions with rapid necrotic canopy collapse.
               </p>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#F0EBE0] font-mono text-[11px] text-botanical-800 flex items-center justify-between">
+              <span>Run Diagnostic</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
-          {/* Sample 3 */}
+          {/* Specimen 3 */}
           <Link
             to="/crop-doctor?sample=tomato_bacterial_spot"
-            className="agri-card p-4 space-y-3 group hover:border-forest-400 hover:shadow-md transition-all"
+            className="p-3.5 rounded-xl bg-white border border-[#E7E0D2] group hover:border-botanical-400 transition-all text-left flex flex-col"
           >
-            <div className="h-36 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+            <div className="h-40 rounded-lg overflow-hidden bg-[#F4EFE6] border border-[#E0D7C5] mb-3">
               <img
                 src="/samples/tomato_bacterial_spot.jpg"
                 alt="Tomato Bacterial Spot"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
               />
             </div>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                Tomato
-              </span>
-              <h4 className="text-sm font-bold text-slate-900 mt-1 group-hover:text-forest-900 transition-colors">
+            <div className="space-y-1 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-wider uppercase text-botanical-800 bg-[#E8EFEA] px-1.5 py-0.5 rounded">
+                  TOMATO
+                </span>
+                <span className="font-mono text-[10px] text-[#758778]">EXT-SOL-TOM</span>
+              </div>
+              <h4 className="font-editorial text-lg text-botanical-950 font-medium pt-1">
                 Bacterial Spot
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
-                Small angular greasy lesions with yellow margins.
+              <p className="text-xs text-[#526557] line-clamp-2">
+                Small angular greasy lesions with distinct yellow margins on leaflets.
               </p>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#F0EBE0] font-mono text-[11px] text-botanical-800 flex items-center justify-between">
+              <span>Run Diagnostic</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
-          {/* Sample 4 */}
+          {/* Specimen 4 */}
           <Link
             to="/crop-doctor?sample=tomato_healthy"
-            className="agri-card p-4 space-y-3 group hover:border-forest-400 hover:shadow-md transition-all"
+            className="p-3.5 rounded-xl bg-white border border-[#E7E0D2] group hover:border-botanical-400 transition-all text-left flex flex-col"
           >
-            <div className="h-36 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+            <div className="h-40 rounded-lg overflow-hidden bg-[#F4EFE6] border border-[#E0D7C5] mb-3">
               <img
                 src="/samples/tomato_healthy.jpg"
-                alt="Healthy Leaf"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                alt="Healthy Control"
+                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
               />
             </div>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                Healthy Control
-              </span>
-              <h4 className="text-sm font-bold text-slate-900 mt-1 group-hover:text-forest-900 transition-colors">
-                Healthy Tomato Leaf
+            <div className="space-y-1 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-wider uppercase text-botanical-800 bg-[#E8EFEA] px-1.5 py-0.5 rounded">
+                  CONTROL
+                </span>
+                <span className="font-mono text-[10px] text-[#758778]">BASELINE</span>
+              </div>
+              <h4 className="font-editorial text-lg text-botanical-950 font-medium pt-1">
+                Healthy Foliage
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
+              <p className="text-xs text-[#526557] line-clamp-2">
                 Uniform green canopy without fungal or bacterial necrosis.
               </p>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#F0EBE0] font-mono text-[11px] text-botanical-800 flex items-center justify-between">
+              <span>Run Diagnostic</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
         </div>
       </section>
 
-      {/* ── CALL TO ACTION BANNER ──────────────────────────────── */}
+      {/* ── 5. FINAL INVITATION ──────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-forest-50 border border-forest-200/80 rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div className="space-y-1.5">
-            <h3 className="text-2xl font-bold text-forest-950 font-heading">
-              Ready to Test with Your Own Leaf Photo?
+        <div className="bg-[#FAF7F0] border border-[#E5DDCE] rounded-xl p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-left">
+          <div className="space-y-2 max-w-xl">
+            <h3 className="font-editorial text-2xl sm:text-3xl text-botanical-950 font-normal">
+              Conduct a Clinical Field Examination
             </h3>
-            <p className="text-sm text-slate-600 max-w-xl">
-              Upload any crop photo, explore the model's confidence distribution, inspect retrieved agricultural literature, and consult the follow-up assistant.
+            <p className="text-xs sm:text-sm text-[#4E6253] leading-relaxed">
+              Upload any custom crop leaf photograph or load a demonstration case. Inspect real model confidence distributions, Grad-CAM activation heatmaps, and retrieved extension guides.
             </p>
           </div>
           <Link
             to="/crop-doctor"
-            className="btn-accent px-8 py-3.5 whitespace-nowrap text-base"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-botanical-950 text-paper-50 font-medium text-xs font-mono tracking-wide border border-botanical-800 hover:bg-botanical-900 active:scale-[0.99] transition-all whitespace-nowrap shadow-xs"
           >
-            <Stethoscope className="w-5 h-5" />
-            <span>Launch Crop Doctor</span>
+            <Stethoscope className="w-4 h-4 text-botanical-300" />
+            <span>LAUNCH CROP DOCTOR</span>
+            <ArrowUpRight className="w-4 h-4 text-botanical-400" />
           </Link>
         </div>
       </section>
