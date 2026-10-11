@@ -68,6 +68,7 @@ test_*.py
 old_*.py
 !tests/
 !tests/**
+tests/__pycache__/
 
 # Frontend build & temporary outputs
 frontend/build/
